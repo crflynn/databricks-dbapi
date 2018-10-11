@@ -1,7 +1,7 @@
 databricks-dbapi
 ================
 
-A thin wrapper around `pyhive <https://github.com/dropbox/PyHive>`_ for connecting to an interactive Databricks cluster.
+A thin wrapper around `pyhive <https://github.com/dropbox/PyHive>`_ for creating a `DBAPI <https://www.python.org/dev/peps/pep-0249/>`_ connection to an interactive Databricks cluster.
 
 Installation
 ------------
