@@ -80,7 +80,7 @@ Connecting on Azure platform, or with ``http_path``:
 
     token = os.environ["DATABRICKS_TOKEN"]
     host = os.environ["DATABRICKS_HOST"]
-    http_path = os.environ["DATABRICKS_CLUSTER"]
+    http_path = os.environ["DATABRICKS_HTTP_PATH"]
 
 
     connection = databricks.connect(
