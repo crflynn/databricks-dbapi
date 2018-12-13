@@ -24,7 +24,6 @@ Using a Databricks API token (recommended):
 
     token = os.environ["DATABRICKS_TOKEN"]
     host = os.environ["DATABRICKS_HOST"]
-    # host = <account_name>.cloud.databricks.com
     cluster = os.environ["DATABRICKS_CLUSTER"]
 
 
@@ -53,7 +52,6 @@ Using your username and password (not recommended):
     user = os.environ["DATABRICKS_USER"]
     password = os.environ["DATABRICKS_PASSWORD"]
     host = os.environ["DATABRICKS_HOST"]
-    # host = <account_name>.cloud.databricks.com
     cluster = os.environ["DATABRICKS_CLUSTER"]
 
 
@@ -62,6 +60,33 @@ Using your username and password (not recommended):
         cluster=cluster,
         user=user,
         password=password
+    )
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM some_table LIMIT 100")
+
+    print(cursor.fetchone())
+    print(cursor.fetchall())
+
+
+Connecting on Azure platform, or with ``http_path``:
+
+.. code-block:: python
+
+    import os
+
+    from databricks_dbapi import databricks
+
+
+    token = os.environ["DATABRICKS_TOKEN"]
+    host = os.environ["DATABRICKS_HOST"]
+    http_path = os.environ["DATABRICKS_HTTP_PATH"]
+
+
+    connection = databricks.connect(
+        host=host,
+        http_path=http_path,
+        token=token,
     )
     cursor = connection.cursor()
 
@@ -83,7 +108,6 @@ The ``pyhive`` connection also provides async functionality:
 
     token = os.environ["DATABRICKS_TOKEN"]
     host = os.environ["DATABRICKS_HOST"]
-    # host = <account_name>.cloud.databricks.com
     cluster = os.environ["DATABRICKS_CLUSTER"]
 
 

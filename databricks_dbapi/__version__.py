@@ -2,7 +2,7 @@
 __title__ = "databricks_dbapi"
 __description__ = "Databricks DBAPI."
 __url__ = "https://github.com/crflynn/databricks-dbapi"
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 __author__ = "Christopher Flynn"
 __author_email__ = "crf204@gmail.com"
 __license__ = "MIT"
