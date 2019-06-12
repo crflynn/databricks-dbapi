@@ -8,6 +8,11 @@ from thrift.transport import THttpClient
 
 PY_MAJOR = sys.version_info[0]
 
+# PEP 249 module globals
+apilevel = hive.apilevel
+threadsafety = hive.threadsafety
+paramstyle = hive.paramstyle
+
 
 def connect(host, cluster=None, http_path=None, token=None, user=None, password=None):
     """Create a Hive DBAPI connection to an interactive Databricks cluster.
