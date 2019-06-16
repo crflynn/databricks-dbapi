@@ -3,6 +3,8 @@ import base64
 import sys
 
 from pyhive import hive
+# Make all exceptions visible in this module per DB-API
+from pyhive.exc import *
 from thrift.transport import THttpClient
 
 
