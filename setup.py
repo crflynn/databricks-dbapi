@@ -35,6 +35,14 @@ setup(
     keywords="databricks hive dbapi",
     packages=["databricks_dbapi"],
     install_requires=["pyhive[hive]"],
+    extras_require={
+        "sqlalchemy": ["sqlalchemy"],
+    },
     include_package_data=False,
     zip_safe=False,
+    entry_points={
+        "sqlalchemy.dialects": [
+            "hive.databricks = databricks_dbapi.sqlalchemy_databricks:DatabricksDialect",
+        ],
+    }
 )
