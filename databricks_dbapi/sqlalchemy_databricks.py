@@ -21,3 +21,9 @@ class DatabricksDialect(HiveDialect):
 
         kwargs.update(url.query)
         return [], kwargs
+
+    def get_table_names(self, connection, schema=None, **kw):
+        query = 'SHOW TABLES'
+        if schema:
+            query += ' IN ' + self.identifier_preparer.quote_identifier(schema)
+        return [row[1] for row in connection.execute(query)]
