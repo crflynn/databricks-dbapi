@@ -9,11 +9,11 @@ class DatabricksDialect(HiveDialect):
 
     def create_connect_args(self, url):
         kwargs = {
-            'host': url.host,
-            'port': url.port or 443,
-            'database': url.database or 'default',
-            'user': url.username,
-            'password': url.password
+            "host": url.host,
+            "port": url.port or 443,
+            "database": url.database or "default",
+            "user": url.username,
+            "password": url.password
         }
 
         if url.query is not None and "http_path" in url.query:
@@ -23,7 +23,7 @@ class DatabricksDialect(HiveDialect):
         return [], kwargs
 
     def get_table_names(self, connection, schema=None, **kw):
-        query = 'SHOW TABLES'
+        query = "SHOW TABLES"
         if schema:
-            query += ' IN ' + self.identifier_preparer.quote_identifier(schema)
+            query += " IN " + self.identifier_preparer.quote_identifier(schema)
         return [row[1] for row in connection.execute(query)]
