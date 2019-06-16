@@ -14,7 +14,7 @@ threadsafety = hive.threadsafety
 paramstyle = hive.paramstyle
 
 
-def connect(host, cluster=None, http_path=None, token=None, user=None, password=None):
+def connect(host, port=443, database="default", cluster=None, http_path=None, token=None, user=None, password=None):
     """Create a Hive DBAPI connection to an interactive Databricks cluster.
 
     Create a DBAPI connection to a Databricks cluster, which can be used to generate
@@ -26,6 +26,8 @@ def connect(host, cluster=None, http_path=None, token=None, user=None, password=
     authentication is strongly preferred.
 
     :param str host: the server hostname from the cluster's JDBC/ODBC connection page.
+    :param int port: the port number from the cluster's JDBC/ODBC connection page.
+    :param str database: the database to use
     :param str cluster: the cluster unique name or alias.
     :param str http_path: the HTTP Path as shown in the cluster's JDBC/ODBC connection
         page. Required if using Azure platform.
@@ -48,9 +50,9 @@ def connect(host, cluster=None, http_path=None, token=None, user=None, password=
         auth = base64.standard_b64encode(auth.encode()).decode()
 
     if http_path is not None:
-        url = "https://%s:443/%s" % (host, http_path)
+        url = "https://%s:%s/%s" % (host, port, http_path)
     elif cluster is not None:
-        url = "https://%s:443/sql/protocolv1/o/0/%s" % (host, cluster)
+        url = "https://%s:%s/sql/protocolv1/o/0/%s" % (host, port, cluster)
     else:
         raise ValueError(
             "Missing arguments. Must provide either cluster or http_path."
@@ -59,4 +61,4 @@ def connect(host, cluster=None, http_path=None, token=None, user=None, password=
     transport = THttpClient.THttpClient(url)
     transport.setCustomHeaders({"Authorization": "Basic %s" % auth})
 
-    return hive.connect(thrift_transport=transport)
+    return hive.connect(database=database, thrift_transport=transport)
