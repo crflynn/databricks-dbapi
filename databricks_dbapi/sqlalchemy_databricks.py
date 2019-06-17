@@ -1,5 +1,6 @@
-from databricks_dbapi import databricks
 from pyhive.sqlalchemy_hive import HiveDialect
+
+from databricks_dbapi import databricks
 
 
 class DatabricksDialect(HiveDialect):
