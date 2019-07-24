@@ -4,6 +4,9 @@ from databricks_dbapi import databricks
 
 
 class DatabricksDialect(HiveDialect):
+    name = b'databricks'
+    driver = b'pyhive'
+
     @classmethod
     def dbapi(cls):
         return databricks

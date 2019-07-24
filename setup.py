@@ -42,7 +42,7 @@ setup(
     zip_safe=False,
     entry_points={
         "sqlalchemy.dialects": [
-            "hive.databricks = databricks_dbapi.sqlalchemy_databricks:DatabricksDialect",
+            "databricks.pyhive = databricks_dbapi.sqlalchemy_databricks:DatabricksDialect",
         ],
     }
 )
