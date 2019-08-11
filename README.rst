@@ -155,6 +155,24 @@ The ``pyhive`` connection also provides async functionality:
     print(cursor.fetchall())
 
 
+
+SQLAlchemy
+----------
+
+Once the ``databricks-dbapi`` is installed, the ``databricks+pyhive`` dialect will be registered to SQLAlchemy. Fill in the required information (``companyname`` and ``clustername`` below) when passing the engine URI.
+
+.. code-block:: python
+
+    from sqlalchemy import *
+    from sqlalchemy.engine import create_engine
+    from sqlalchemy.schema import *
+
+    # engine = create_engine('databricks+pyhive://username:password@companyname.cloud.databricks.com:443/sql/protocolv1/o/0/clustername')
+    engine = create_engine('databricks+pyhive://token:<databrickstoken>@companyname.cloud.databricks.com:443/sql/protocolv1/o/0/clustername')
+    logs = Table('my_table', MetaData(bind=engine), autoload=True)
+    print select([func.count('*')], from_obj=logs).scalar()
+
+
 Related
 -------
 
