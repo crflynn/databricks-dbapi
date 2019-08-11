@@ -7,3 +7,4 @@ dist/
 *.egg-info
 .tool-versions
 test.sh
+.pytest_cache
