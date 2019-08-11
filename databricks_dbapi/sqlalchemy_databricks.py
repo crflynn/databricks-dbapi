@@ -4,8 +4,8 @@ from databricks_dbapi import databricks
 
 
 class DatabricksDialect(HiveDialect):
-    name = b'databricks'
-    driver = b'pyhive'
+    name = b"databricks"
+    driver = b"pyhive"
 
     @classmethod
     def dbapi(cls):
@@ -17,7 +17,7 @@ class DatabricksDialect(HiveDialect):
             "port": url.port or 443,
             "database": url.database or "default",
             "user": url.username,
-            "password": url.password
+            "password": url.password,
         }
 
         if url.query is not None and "http_path" in url.query:

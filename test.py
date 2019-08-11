@@ -14,25 +14,19 @@ http_path = os.environ["DATABRICKS_HTTP_PATH"]
 
 
 def token_test():
-    connection = databricks.connect(
-        host=host, cluster=cluster, token=token
-    )
+    connection = databricks.connect(host=host, cluster=cluster, token=token)
     cursor = connection.cursor()
     print(cursor)
 
 
 def user_password_test():
-    connection = databricks.connect(
-        host=host, cluster=cluster, user=user, password=password
-    )
+    connection = databricks.connect(host=host, cluster=cluster, user=user, password=password)
     cursor = connection.cursor()
     print(cursor)
 
 
 def http_path_test():
-    connection = databricks.connect(
-        host=host, http_path=http_path, token=token
-    )
+    connection = databricks.connect(host=host, http_path=http_path, token=token)
     cursor = connection.cursor()
     print(cursor)
 

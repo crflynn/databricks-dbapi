@@ -1,6 +1,13 @@
 Release History
 ---------------
 
+0.3.0: 2019-08-11
+~~~~~~~~~~~~~~~~~
+
+* Add module globals to make DBAPI PEP 249 compliant
+* Allow port and database name to be passed in connect function
+* Add compatibility with SQLAlchemy
+
 0.2.0: 2018-12-12
 ~~~~~~~~~~~~~~~~~
 

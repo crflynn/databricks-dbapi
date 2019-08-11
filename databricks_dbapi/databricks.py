@@ -3,8 +3,7 @@ import base64
 import sys
 
 from pyhive import hive
-# Make all exceptions visible in this module per DB-API
-from pyhive.exc import *
+from pyhive.exc import *  # Make all exceptions visible in this module per DB-API
 from thrift.transport import THttpClient
 
 
@@ -42,9 +41,7 @@ def connect(host, port=443, database="default", cluster=None, http_path=None, to
     elif user is not None and password is not None:
         auth = "%s:%s" % (user, password)
     else:
-        raise ValueError(
-            "Missing arguments. Must provide either token or user/password."
-        )
+        raise ValueError("Missing arguments. Must provide either token or user/password.")
 
     if PY_MAJOR < 3:
         auth = base64.standard_b64encode(auth)
@@ -56,9 +53,7 @@ def connect(host, port=443, database="default", cluster=None, http_path=None, to
     elif cluster is not None:
         url = "https://%s:%s/sql/protocolv1/o/0/%s" % (host, port, cluster)
     else:
-        raise ValueError(
-            "Missing arguments. Must provide either cluster or http_path."
-        )
+        raise ValueError("Missing arguments. Must provide either cluster or http_path.")
 
     transport = THttpClient.THttpClient(url)
     transport.setCustomHeaders({"Authorization": "Basic %s" % auth})

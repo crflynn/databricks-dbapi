@@ -1,12 +1,33 @@
 databricks-dbapi
 ================
 
+|pypi| |pyversions|
+
+.. |pypi| image:: https://img.shields.io/pypi/v/databricks-dbapi.svg
+    :target: https://pypi.python.org/pypi/databricks-dbapi
+
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/databricks-dbapi.svg
+    :target: https://pypi.python.org/pypi/databricks-dbapi
+
 A thin wrapper around `pyhive <https://github.com/dropbox/PyHive>`_ for creating a `DBAPI <https://www.python.org/dev/peps/pep-0249/>`_ connection to an interactive Databricks cluster.
+
+Also provides a SQLAlchemy Dialect for Databricks interactive clusters.
 
 Installation
 ------------
 
-Install using ``pip install databricks-dbapi``
+Install using pip:
+
+.. code-block:: bash
+
+    pip install databricks-dbapi
+
+
+For SQLAlchemy support install with:
+
+.. code-block:: bash
+
+    pip install databricks-dbapi[sqlalchemy]
 
 Usage
 -----
