@@ -168,25 +168,29 @@ Once the ``databricks-dbapi`` package is installed, the ``databricks+pyhive`` di
     from sqlalchemy.schema import *
 
 
-    # Standard Databricks with user + password: provide user, password, company name for url, database name, cluster name
+    # Standard Databricks with user + password
+    # provide user, password, company name for url, database name, cluster name
     engine = create_engine(
         "databricks+pyhive://<user>:<password>@<companyname>.cloud.databricks.com:443/<database>",
         connect_args={"cluster": "<cluster>"}
     )
 
-    # Standard Databricks with token: provide token, company name for url, database name, cluster name
+    # Standard Databricks with token
+    # provide token, company name for url, database name, cluster name
     engine = create_engine(
         "databricks+pyhive://token:<databricks_token>@<companyname>.cloud.databricks.com:443/<database>",
         connect_args={"cluster": "<cluster>"}
     )
 
-    # Azure Databricks with user + password: provide user, password, region for url, database name, http_path (with cluster name)
+    # Azure Databricks with user + password
+    # provide user, password, region for url, database name, http_path (with cluster name)
     engine = create_engine(
         "databricks+pyhive://<user>:<password>@<region>.azuredatabricks.net:443/<database>",
         connect_args={"http_path": "<azure_databricks_http_path>"}
     )
 
-    # Azure Databricks with token: provide token, region for url, database name, http_path (with cluster name)
+    # Azure Databricks with token
+    # provide token, region for url, database name, http_path (with cluster name)
     engine = create_engine(
         "databricks+pyhive://token:<databrickstoken>@<region>.azuredatabricks.net:443/<database>",
         connect_args={"http_path": "<azure_databricks_http_path>"}
