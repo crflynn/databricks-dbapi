@@ -182,7 +182,7 @@ Once the ``databricks-dbapi`` package is installed, the ``databricks+pyhive`` di
 
 
     logs = Table("my_table", MetaData(bind=engine), autoload=True)
-    print select([func.count("*")], from_obj=logs).scalar()
+    print(select([func.count("*")], from_obj=logs).scalar())
 
 
 Refer to the following documentation for more details on hostname, cluster name, and http path:
