@@ -159,7 +159,7 @@ The ``pyhive`` connection also provides async functionality:
 SQLAlchemy
 ----------
 
-Once the ``databricks-dbapi`` is installed, the ``databricks+pyhive`` dialect will be registered to SQLAlchemy. Fill in the required information (``companyname`` and ``clustername`` below) when passing the engine URI.
+Once the ``databricks-dbapi`` package is installed, the ``databricks+pyhive`` dialect/driver will be registered to SQLAlchemy. Fill in the required information when passing the engine URL.
 
 .. code-block:: python
 
@@ -175,16 +175,20 @@ Once the ``databricks-dbapi`` is installed, the ``databricks+pyhive`` dialect wi
     engine = create_engine("databricks+pyhive://token:<databricks_token>@<companyname>.cloud.databricks.com:443/<database>", connect_args={"cluster": "<cluster>"})
 
     # Azure Databricks with user + password: provide user, password, region for url, database name, http_path (with cluster name)
-    # For http_path see here: https://docs.azuredatabricks.net/user-guide/bi/jdbc-odbc-bi.html#construct-the-jdbc-url
     engine = create_engine("databricks+pyhive://<user>:<password>@<region>.azuredatabricks.net:443/<database>", connect_args={"http_path": "<azure_databricks_http_path>"})
 
     # Azure Databricks with token: provide token, region for url, database name, http_path (with cluster name)
-    # For http_path see here: https://docs.azuredatabricks.net/user-guide/bi/jdbc-odbc-bi.html#construct-the-jdbc-url
     engine = create_engine("databricks+pyhive://token:<databrickstoken>@<region>.azuredatabricks.net:443/<database>", connect_args={"http_path": "<azure_databricks_http_path>"})
 
 
     logs = Table("my_table", MetaData(bind=engine), autoload=True)
     print select([func.count("*")], from_obj=logs).scalar()
+
+
+Refer to the following documentation for more details on hostname, cluster name, and http path:
+
+* `Databricks <https://docs.databricks.com/user-guide/bi/jdbc-odbc-bi.html>`_
+* `Azure Databricks <https://docs.azuredatabricks.net/user-guide/bi/jdbc-odbc-bi.html>`_
 
 
 Related
