@@ -167,8 +167,8 @@ Once the ``databricks-dbapi`` is installed, the ``databricks+pyhive`` dialect wi
     from sqlalchemy.engine import create_engine
     from sqlalchemy.schema import *
 
-    # engine = create_engine('databricks+pyhive://username:password@companyname.cloud.databricks.com:443/sql/protocolv1/o/0/clustername')
-    engine = create_engine('databricks+pyhive://token:<databrickstoken>@companyname.cloud.databricks.com:443/sql/protocolv1/o/0/clustername')
+    # engine = create_engine('databricks+pyhive://<username>:<password>@<companyname>.cloud.databricks.com:443/sql/protocolv1/o/0/<clustername>')
+    engine = create_engine('databricks+pyhive://token:<databrickstoken>@<companyname>.cloud.databricks.com:443/sql/protocolv1/o/0/<clustername>')
     logs = Table('my_table', MetaData(bind=engine), autoload=True)
     print select([func.count('*')], from_obj=logs).scalar()
 
