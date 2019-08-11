@@ -15,7 +15,7 @@ class DatabricksDialect(HiveDialect):
         kwargs = {
             "host": url.host,
             "port": url.port or 443,
-            "username": url.username,
+            "user": url.username,
             "password": url.password,
             "database": url.database or "default",
         }
