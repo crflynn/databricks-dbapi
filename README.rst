@@ -167,10 +167,24 @@ Once the ``databricks-dbapi`` is installed, the ``databricks+pyhive`` dialect wi
     from sqlalchemy.engine import create_engine
     from sqlalchemy.schema import *
 
-    # engine = create_engine('databricks+pyhive://<username>:<password>@<companyname>.cloud.databricks.com:443/sql/protocolv1/o/0/<clustername>')
-    engine = create_engine('databricks+pyhive://token:<databrickstoken>@<companyname>.cloud.databricks.com:443/sql/protocolv1/o/0/<clustername>')
-    logs = Table('my_table', MetaData(bind=engine), autoload=True)
-    print select([func.count('*')], from_obj=logs).scalar()
+
+    # Standard Databricks with user + password: provide user, password, company name for url, database name, cluster name
+    engine = create_engine("databricks+pyhive://<user>:<password>@<companyname>.cloud.databricks.com:443/<database>", connect_args={"cluster": "<cluster>"})
+
+    # Standard Databricks with token: provide token, company name for url, database name, cluster name
+    engine = create_engine("databricks+pyhive://token:<databricks_token>@<companyname>.cloud.databricks.com:443/<database>", connect_args={"cluster": "<cluster>"})
+
+    # Azure Databricks with user + password: provide user, password, region for url, database name, http_path (with cluster name)
+    # For http_path see here: https://docs.azuredatabricks.net/user-guide/bi/jdbc-odbc-bi.html#construct-the-jdbc-url
+    engine = create_engine("databricks+pyhive://<user>:<password>@<region>.azuredatabricks.net:443/<database>", connect_args={"http_path": "<azure_databricks_http_path>"})
+
+    # Azure Databricks with token: provide token, region for url, database name, http_path (with cluster name)
+    # For http_path see here: https://docs.azuredatabricks.net/user-guide/bi/jdbc-odbc-bi.html#construct-the-jdbc-url
+    engine = create_engine("databricks+pyhive://token:<databrickstoken>@<region>.azuredatabricks.net:443/<database>", connect_args={"http_path": "<azure_databricks_http_path>"})
+
+
+    logs = Table("my_table", MetaData(bind=engine), autoload=True)
+    print select([func.count("*")], from_obj=logs).scalar()
 
 
 Related
