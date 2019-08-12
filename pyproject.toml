@@ -30,7 +30,7 @@ readme = "README.rst"
 homepage = "https://github.com/crflynn/databricks-dbapi"
 repository = "https://github.com/crflynn/databricks-dbapi"
 documentation = "https://github.com/crflynn/databricks-dbapi"
-keywords = ["databricks", "hive", "dbapi"]
+keywords = ["databricks", "hive", "dbapi", "sqlalchemy", "dialect"]
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",

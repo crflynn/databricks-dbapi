@@ -1,7 +1,7 @@
 Release History
 ---------------
 
-0.3.0: 2019-08-11
+0.3.0: 2019-08-12
 ~~~~~~~~~~~~~~~~~
 
 * Add module globals to make DBAPI PEP 249 compliant
