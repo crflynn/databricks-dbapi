@@ -1,43 +1,56 @@
 import os
 
 from databricks_dbapi import databricks
+from sqlalchemy.engine import create_engine
 
 
-token = os.environ["DATABRICKS_TOKEN"]
+TOKEN = os.environ["DATABRICKS_TOKEN"]
 
-user = os.environ["DATABRICKS_USER"]
-password = os.environ["DATABRICKS_PASSWORD"]
+USER = os.environ["DATABRICKS_USER"]
+PASSWORD = os.environ["DATABRICKS_PASSWORD"]
 
-host = os.environ["DATABRICKS_HOST"]
-cluster = os.environ["DATABRICKS_CLUSTER"]
-http_path = os.environ["DATABRICKS_HTTP_PATH"]
+HOST = os.environ["DATABRICKS_HOST"]
+CLUSTER = os.environ["DATABRICKS_CLUSTER"]
+HTTP_PATH = os.environ["DATABRICKS_HTTP_PATH"]
 
 
-def token_test():
-    connection = databricks.connect(
-        host=host, cluster=cluster, token=token
-    )
+def test_token():
+    connection = databricks.connect(host=HOST, cluster=CLUSTER, token=TOKEN)
     cursor = connection.cursor()
     print(cursor)
 
 
-def user_password_test():
-    connection = databricks.connect(
-        host=host, cluster=cluster, user=user, password=password
-    )
+def test_user_password():
+    connection = databricks.connect(host=HOST, cluster=CLUSTER, user=USER, password=PASSWORD)
     cursor = connection.cursor()
     print(cursor)
 
 
-def http_path_test():
-    connection = databricks.connect(
-        host=host, http_path=http_path, token=token
-    )
+def test_http_path():
+    connection = databricks.connect(host=HOST, http_path=HTTP_PATH, token=TOKEN)
     cursor = connection.cursor()
     print(cursor)
 
 
-if __name__ == "__main__":
-    token_test()
-    user_password_test()
-    http_path_test()
+def test_sqlalchemy_token():
+    engine = create_engine(
+        f"databricks+pyhive://token:{TOKEN}@{HOST}:443/default", connect_args={"cluster": f"{CLUSTER}"}
+    )
+    connection = engine.connect()
+    print(connection)
+
+
+def test_sqlalchemy_user_password():
+    engine = create_engine(
+        f"databricks+pyhive://{USER}:{PASSWORD}@{HOST}:443/default", connect_args={"cluster": f"{CLUSTER}"}
+    )
+    connection = engine.connect()
+    print(connection)
+
+
+def test_sqlalchemy_http_path():
+    engine = create_engine(
+        f"databricks+pyhive://token:{TOKEN}@{HOST}:443/default", connect_args={"http_path": f"{HTTP_PATH}"}
+    )
+    connection = engine.connect()
+    print(connection)

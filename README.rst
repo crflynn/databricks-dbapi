@@ -1,12 +1,33 @@
 databricks-dbapi
 ================
 
+|pypi| |pyversions|
+
+.. |pypi| image:: https://img.shields.io/pypi/v/databricks-dbapi.svg
+    :target: https://pypi.python.org/pypi/databricks-dbapi
+
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/databricks-dbapi.svg
+    :target: https://pypi.python.org/pypi/databricks-dbapi
+
 A thin wrapper around `pyhive <https://github.com/dropbox/PyHive>`_ for creating a `DBAPI <https://www.python.org/dev/peps/pep-0249/>`_ connection to an interactive Databricks cluster.
+
+Also provides a SQLAlchemy Dialect for Databricks interactive clusters.
 
 Installation
 ------------
 
-Install using ``pip install databricks-dbapi``
+Install using pip:
+
+.. code-block:: bash
+
+    pip install databricks-dbapi
+
+
+For SQLAlchemy support install with:
+
+.. code-block:: bash
+
+    pip install databricks-dbapi[sqlalchemy]
 
 Usage
 -----
@@ -132,6 +153,58 @@ The ``pyhive`` connection also provides async functionality:
         status = cursor.poll().operationState
 
     print(cursor.fetchall())
+
+
+
+SQLAlchemy
+----------
+
+Once the ``databricks-dbapi`` package is installed, the ``databricks+pyhive`` dialect/driver will be registered to SQLAlchemy. Fill in the required information when passing the engine URL.
+
+.. code-block:: python
+
+    from sqlalchemy import *
+    from sqlalchemy.engine import create_engine
+    from sqlalchemy.schema import *
+
+
+    # Standard Databricks with user + password
+    # provide user, password, company name for url, database name, cluster name
+    engine = create_engine(
+        "databricks+pyhive://<user>:<password>@<companyname>.cloud.databricks.com:443/<database>",
+        connect_args={"cluster": "<cluster>"}
+    )
+
+    # Standard Databricks with token
+    # provide token, company name for url, database name, cluster name
+    engine = create_engine(
+        "databricks+pyhive://token:<databricks_token>@<companyname>.cloud.databricks.com:443/<database>",
+        connect_args={"cluster": "<cluster>"}
+    )
+
+    # Azure Databricks with user + password
+    # provide user, password, region for url, database name, http_path (with cluster name)
+    engine = create_engine(
+        "databricks+pyhive://<user>:<password>@<region>.azuredatabricks.net:443/<database>",
+        connect_args={"http_path": "<azure_databricks_http_path>"}
+    )
+
+    # Azure Databricks with token
+    # provide token, region for url, database name, http_path (with cluster name)
+    engine = create_engine(
+        "databricks+pyhive://token:<databrickstoken>@<region>.azuredatabricks.net:443/<database>",
+        connect_args={"http_path": "<azure_databricks_http_path>"}
+    )
+
+
+    logs = Table("my_table", MetaData(bind=engine), autoload=True)
+    print(select([func.count("*")], from_obj=logs).scalar())
+
+
+Refer to the following documentation for more details on hostname, cluster name, and http path:
+
+* `Databricks <https://docs.databricks.com/user-guide/bi/jdbc-odbc-bi.html>`_
+* `Azure Databricks <https://docs.azuredatabricks.net/user-guide/bi/jdbc-odbc-bi.html>`_
 
 
 Related
