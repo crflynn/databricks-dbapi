@@ -1,6 +1,14 @@
 Release History
 ---------------
 
+0.4.0: 2021-01-09
+~~~~~~~~~~~~~~~~~
+
+* Override get_columns in DatabricksDialect to account for differences in Databricks and OSS Hive partition header
+* Fix version file
+* Update black and add isort
+
+
 0.3.0: 2019-08-14
 ~~~~~~~~~~~~~~~~~
 

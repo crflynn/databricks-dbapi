@@ -5,7 +5,7 @@ include = '\.pyi?$'
 exclude = '''
 (
   /(
-      \.eggs         # exclude a few common directories in the root of the project
+      \.eggs
     | \.git
     | \.github
     | \.hg
@@ -19,6 +19,14 @@ exclude = '''
   )/
 )
 '''
+
+[tool.isort]
+force_single_line = true
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 120
 
 [tool.poetry]
 name = "databricks_dbapi"
@@ -40,11 +48,13 @@ classifiers = [
     "Programming Language :: Python :: 3.5",
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Database",
     "Topic :: Database :: Front-Ends",
 ]
-include = ["CONTRIBUTORS.rst", "HISTORY.rst"]
+include = ["CHANGELOG.rst"]
 
 [tool.poetry.plugins."sqlalchemy.dialects"]
 "databricks.pyhive" = "databricks_dbapi.sqlalchemy_databricks:DatabricksDialect"
@@ -55,13 +65,13 @@ sqlalchemy = ["sqlalchemy"]
 [tool.poetry.dependencies]
 python = "~2.7 || ^3.5"
 pyhive = {version = "^0.6.1", extras = ["hive"]}
-sqlalchemy = { version = "^1.3", optional = true }
+sqlalchemy = {version = "^1.3", optional = true}
 
 [tool.poetry.dev-dependencies]
-black = {version = "^18.3-alpha.0",allows-prereleases = true,python = "^3.7" }
-twine = "^1.13"
+black = {version = "^20.8b1", python = "^3.7" }
+isort = {version = "^5.7.0", python = "^3.7" }
 pytest = "4.6"
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
