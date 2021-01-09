@@ -7,6 +7,7 @@ Release History
 * Override get_columns in DatabricksDialect to account for differences in Databricks and OSS Hive partition header
 * Fix version file
 * Update black and add isort
+* Add org id argument for connection
 
 
 0.3.0: 2019-08-14
