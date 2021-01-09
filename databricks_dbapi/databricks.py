@@ -6,7 +6,6 @@ from pyhive import hive
 from pyhive.exc import *  # Make all exceptions visible in this module per PEP 249
 from thrift.transport import THttpClient
 
-
 PY_MAJOR = sys.version_info[0]
 
 # PEP 249 module globals

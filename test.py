@@ -1,8 +1,8 @@
 import os
 
-from databricks_dbapi import databricks
 from sqlalchemy.engine import create_engine
 
+from databricks_dbapi import databricks
 
 TOKEN = os.environ["DATABRICKS_TOKEN"]
 
