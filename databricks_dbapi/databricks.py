@@ -40,8 +40,8 @@ def connect(
     :param str token: a Databricks API token.
     :param str user: a Databricks user name.
     :param str password: the corresponding Databricks user's password.
-    :param str org: the org id associated with the Databricks workspace (E2). Not
-        required if passing ``http_path``.
+    :param str org: the org id associated with the Databricks workspace (E2). Required
+        for E2 if not passing ``http_path``. Not required if passing ``http_path``.
     """
     if token is not None:
         auth = "token:%s" % token
