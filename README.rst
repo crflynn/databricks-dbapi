@@ -43,7 +43,7 @@ Connecting with ``http_path``, ``host``, and a ``token``:
 
     import os
 
-    from databricks_dbapi import databricks
+    from databricks_dbapi import hive
 
 
     token = os.environ["DATABRICKS_TOKEN"]
@@ -70,7 +70,7 @@ The ``pyhive`` connection also provides async functionality:
 
     import os
 
-    from databricks_dbapi import databricks
+    from databricks_dbapi import hive
     from TCLIService.ttypes import TOperationState
 
 
@@ -79,7 +79,7 @@ The ``pyhive`` connection also provides async functionality:
     cluster = os.environ["DATABRICKS_CLUSTER"]
 
 
-    connection = databricks.connect(
+    connection = hive.connect(
         host=host,
         cluster=cluster,
         token=token,
