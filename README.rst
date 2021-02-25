@@ -125,6 +125,7 @@ Connecting with ``http_path``, ``host``, and a ``token``:
         host=host,
         http_path=http_path,
         token=token,
+        driver_path="/path/to/simba/driver",
     )
     cursor = connection.cursor()
 
