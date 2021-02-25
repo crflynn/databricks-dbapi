@@ -1,10 +1,6 @@
 """Provide a function to create a Hive connection to a Databricks cluster."""
-import sys
-
 import pyodbc
 from pyodbc import *  # Make globals and exceptions visible in this module per PEP 249
-
-PY_MAJOR = sys.version_info[0]
 
 
 def connect(
