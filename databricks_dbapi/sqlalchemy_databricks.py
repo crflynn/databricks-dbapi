@@ -5,7 +5,7 @@ from pyhive.sqlalchemy_hive import _type_map
 from sqlalchemy import types
 from sqlalchemy import util
 
-from databricks_dbapi import databricks
+from databricks_dbapi import hive
 
 
 class DatabricksDialect(HiveDialect):
@@ -14,7 +14,7 @@ class DatabricksDialect(HiveDialect):
 
     @classmethod
     def dbapi(cls):
-        return databricks
+        return hive
 
     def create_connect_args(self, url):
         kwargs = {
