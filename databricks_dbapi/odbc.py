@@ -44,9 +44,11 @@ def connect(
     else:
         raise ValueError("Missing arguments. Must provide either token or user/password.")
 
-    connection_string = f"Driver={driver_path};Database={database};Host={host};"
-    connection_string += f"Port={port};httpPath={http_path};UID={user};PWD={password};"
-    connection_string += "transportMode=http;ssl=1;AuthMech=8;SparkServerType=3;ThriftTransport=1"
+    connection_string = (
+        f"Driver={driver_path};Database={database};Host={host};"
+        f"Port={port};httpPath={http_path};UID={user};PWD={password};"
+        "transportMode=http;ssl=1;AuthMech=8;SparkServerType=3;ThriftTransport=1"
+    )
 
     # autocommit is required
     return pyodbc.connect(connection_string, autocommit=True, **kwargs)
