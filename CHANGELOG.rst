@@ -7,6 +7,7 @@ Release History
 * Add pyodbc as a dependency
 * Add ODBC DBAPI connection
 * Add kwargs to connect signature, which are passed down to pyhive/pyodbc connect functions
+* Add pyodbc-driven sqlalchemy dialects
 * Remove any user/password authentication from documentation
 * BREAKING: Rename the ``databricks`` module to ``hive``, to explicitly differentiate between the two drivers
 * BREAKING: Remove ``cluster`` and ``org`` arguments from DBAPI connect signature
