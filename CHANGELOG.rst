@@ -1,8 +1,8 @@
 Release History
 ---------------
 
-0.5.0: TBD
-~~~~~~~~~~
+0.5.0: 2021-02-25
+~~~~~~~~~~~~~~~~~
 
 * Add pyodbc as a dependency
 * Add ODBC DBAPI connection

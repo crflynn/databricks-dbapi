@@ -30,7 +30,7 @@ line_length = 120
 
 [tool.poetry]
 name = "databricks_dbapi"
-version = "0.4.0"
+version = "0.5.0"
 description = "A DBAPI 2.0 interface and SQLAlchemy dialect for Databricks interactive clusters."
 authors = ["Christopher Flynn <crf204@gmail.com>"]
 license = "MIT"
