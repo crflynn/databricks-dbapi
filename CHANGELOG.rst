@@ -1,6 +1,15 @@
 Release History
 ---------------
 
+0.5.0: TBD
+~~~~~~~~~~
+
+* Add pyodbc as a dependency
+* Add ODBC DBAPI connection
+* Remove any user/password authentication from documentation
+* BREAKING: Rename the ``databricks`` module to ``hive``, to explicitly differentiate between the two drivers
+* BREAKING: Remove ``cluster`` and ``org`` arguments from DBAPI connect signature
+
 0.4.0: 2021-01-09
 ~~~~~~~~~~~~~~~~~
 

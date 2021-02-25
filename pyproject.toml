@@ -58,6 +58,9 @@ include = ["CHANGELOG.rst"]
 
 [tool.poetry.plugins."sqlalchemy.dialects"]
 "databricks.pyhive" = "databricks_dbapi.sqlalchemy_databricks:DatabricksDialect"
+# TODO refactor
+#"databricks.odbc" = "databricks_dbapi.sqlalchemy.pyhive:DatabricksDialect"
+#"databricks.odbc" = "databricks_dbapi.sqlalchemy.odbc:DatabricksDialect"
 
 [tool.poetry.extras]
 sqlalchemy = ["sqlalchemy"]
@@ -66,11 +69,13 @@ sqlalchemy = ["sqlalchemy"]
 python = "~2.7 || ^3.5"
 pyhive = {version = "^0.6.1", extras = ["hive"]}
 sqlalchemy = {version = "^1.3", optional = true}
+pyodbc = "^4.0.30"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^20.8b1", python = "^3.7" }
 isort = {version = "^5.7.0", python = "^3.7" }
 pytest = "4.6"
+python-dotenv = "^0.15.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

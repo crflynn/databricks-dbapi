@@ -9,9 +9,9 @@ databricks-dbapi
 .. |pyversions| image:: https://img.shields.io/pypi/pyversions/databricks-dbapi.svg
     :target: https://pypi.python.org/pypi/databricks-dbapi
 
-A thin wrapper around `pyhive <https://github.com/dropbox/PyHive>`_ for creating a `DBAPI <https://www.python.org/dev/peps/pep-0249/>`_ connection to an interactive Databricks cluster.
+A thin wrapper around `pyhive <https://github.com/dropbox/PyHive>`__ and `pyodbc <https://github.com/mkleehammer/pyodbc>`__ for creating a `DBAPI <https://www.python.org/dev/peps/pep-0249/>`__ connection to Databricks Workspace and SQL Analytics clusters. SQL Analytics clusters require the `Simba ODBC driver <https://databricks.com/spark/odbc-driver-download>`__.
 
-Also provides a SQLAlchemy Dialect for Databricks interactive clusters.
+Also provides a SQLAlchemy Dialect for Databricks Workspace clusters.
 
 Installation
 ------------
@@ -32,71 +32,18 @@ For SQLAlchemy support install with:
 Usage
 -----
 
+PyHive
+~~~~~~
+
 The ``connect()`` function returns a ``pyhive`` Hive connection object, which internally wraps a ``thrift`` connection.
 
-Using a Databricks API token (recommended):
+Connecting with ``http_path``, ``host``, and a ``token``:
 
 .. code-block:: python
 
     import os
 
-    from databricks_dbapi import databricks
-
-
-    token = os.environ["DATABRICKS_TOKEN"]
-    host = os.environ["DATABRICKS_HOST"]
-    cluster = os.environ["DATABRICKS_CLUSTER"]
-
-
-    connection = databricks.connect(
-        host=host,
-        cluster=cluster,
-        token=token,
-    )
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM some_table LIMIT 100")
-
-    print(cursor.fetchone())
-    print(cursor.fetchall())
-
-
-Using your username and password (not recommended):
-
-.. code-block:: python
-
-    import os
-
-    from databricks_dbapi import databricks
-
-
-    user = os.environ["DATABRICKS_USER"]
-    password = os.environ["DATABRICKS_PASSWORD"]
-    host = os.environ["DATABRICKS_HOST"]
-    cluster = os.environ["DATABRICKS_CLUSTER"]
-
-
-    connection = databricks.connect(
-        host=host,
-        cluster=cluster,
-        user=user,
-        password=password
-    )
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM some_table LIMIT 100")
-
-    print(cursor.fetchone())
-    print(cursor.fetchall())
-
-
-Connecting on Azure platform, or with ``http_path``:
-
-.. code-block:: python
-
-    import os
-
-    from databricks_dbapi import databricks
+    from databricks_dbapi import hive
 
 
     token = os.environ["DATABRICKS_TOKEN"]
@@ -104,7 +51,7 @@ Connecting on Azure platform, or with ``http_path``:
     http_path = os.environ["DATABRICKS_HTTP_PATH"]
 
 
-    connection = databricks.connect(
+    connection = hive.connect(
         host=host,
         http_path=http_path,
         token=token,
@@ -123,7 +70,7 @@ The ``pyhive`` connection also provides async functionality:
 
     import os
 
-    from databricks_dbapi import databricks
+    from databricks_dbapi import hive
     from TCLIService.ttypes import TOperationState
 
 
@@ -132,7 +79,7 @@ The ``pyhive`` connection also provides async functionality:
     cluster = os.environ["DATABRICKS_CLUSTER"]
 
 
-    connection = databricks.connect(
+    connection = hive.connect(
         host=host,
         cluster=cluster,
         token=token,
@@ -155,6 +102,37 @@ The ``pyhive`` connection also provides async functionality:
     print(cursor.fetchall())
 
 
+ODBC
+~~~~
+
+The ODBC DBAPI requires the Simba ODBC driver.
+
+Connecting with ``http_path``, ``host``, and a ``token``:
+
+.. code-block:: python
+
+    import os
+
+    from databricks_dbapi import odbc
+
+
+    token = os.environ["DATABRICKS_TOKEN"]
+    host = os.environ["DATABRICKS_HOST"]
+    http_path = os.environ["DATABRICKS_HTTP_PATH"]
+
+
+    connection = odbc.connect(
+        host=host,
+        http_path=http_path,
+        token=token,
+    )
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM some_table LIMIT 100")
+
+    print(cursor.fetchone())
+    print(cursor.fetchall())
+
 
 SQLAlchemy
 ----------
@@ -168,34 +146,10 @@ Once the ``databricks-dbapi`` package is installed, the ``databricks+pyhive`` di
     from sqlalchemy.schema import *
 
 
-    # Standard Databricks with user + password
-    # provide user, password, company name for url, database name, cluster name
     engine = create_engine(
-        "databricks+pyhive://<user>:<password>@<companyname>.cloud.databricks.com:443/<database>",
-        connect_args={"cluster": "<cluster>"}
+        "databricks+pyhive://token:<databricks_token>@<host>:<port>/<database>",
+        connect_args={"http_path": "<cluster_http_path>"}
     )
-
-    # Standard Databricks with token
-    # provide token, company name for url, database name, cluster name
-    engine = create_engine(
-        "databricks+pyhive://token:<databricks_token>@<companyname>.cloud.databricks.com:443/<database>",
-        connect_args={"cluster": "<cluster>"}
-    )
-
-    # Azure Databricks with user + password
-    # provide user, password, region for url, database name, http_path (with cluster name)
-    engine = create_engine(
-        "databricks+pyhive://<user>:<password>@<region>.azuredatabricks.net:443/<database>",
-        connect_args={"http_path": "<azure_databricks_http_path>"}
-    )
-
-    # Azure Databricks with token
-    # provide token, region for url, database name, http_path (with cluster name)
-    engine = create_engine(
-        "databricks+pyhive://token:<databrickstoken>@<region>.azuredatabricks.net:443/<database>",
-        connect_args={"http_path": "<azure_databricks_http_path>"}
-    )
-
 
     logs = Table("my_table", MetaData(bind=engine), autoload=True)
     print(select([func.count("*")], from_obj=logs).scalar())
@@ -203,12 +157,13 @@ Once the ``databricks-dbapi`` package is installed, the ``databricks+pyhive`` di
 
 Refer to the following documentation for more details on hostname, cluster name, and http path:
 
-* `Databricks <https://docs.databricks.com/user-guide/bi/jdbc-odbc-bi.html>`_
-* `Azure Databricks <https://docs.azuredatabricks.net/user-guide/bi/jdbc-odbc-bi.html>`_
+* `Databricks <https://docs.databricks.com/user-guide/bi/jdbc-odbc-bi.html>`__
+* `Azure Databricks <https://docs.azuredatabricks.net/user-guide/bi/jdbc-odbc-bi.html>`__
 
 
 Related
 -------
 
-* `pyhive <https://github.com/dropbox/PyHive>`_
-* `thrift <https://github.com/apache/thrift/tree/master/lib/py>`_
+* `pyhive <https://github.com/dropbox/PyHive>`__
+* `thrift <https://github.com/apache/thrift/tree/master/lib/py>`__
+* `pyodbc <https://github.com/mkleehammer/pyodbc>`__

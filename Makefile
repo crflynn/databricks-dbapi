@@ -6,6 +6,9 @@ fmt:
 	poetry run black .
 	poetry run isort .
 
+test:
+	poetry run pytest .
+
 clean:
 	rm -rf dist
 
