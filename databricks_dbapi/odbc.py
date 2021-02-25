@@ -1,4 +1,4 @@
-"""Provide a function to create a Hive connection to a Databricks cluster."""
+"""Provide a function to create an ODBC connection to a Databricks cluster."""
 import pyodbc
 from pyodbc import *  # Make globals and exceptions visible in this module per PEP 249
 
