@@ -57,10 +57,8 @@ classifiers = [
 include = ["CHANGELOG.rst"]
 
 [tool.poetry.plugins."sqlalchemy.dialects"]
-"databricks.pyhive" = "databricks_dbapi.sqlalchemy_databricks:DatabricksDialect"
-# TODO refactor
-#"databricks.odbc" = "databricks_dbapi.sqlalchemy.pyhive:DatabricksDialect"
-#"databricks.odbc" = "databricks_dbapi.sqlalchemy.odbc:DatabricksDialect"
+"databricks.pyhive" = "databricks_dbapi.sqlalchemy_dialects.hive:DatabricksPyhiveDialect"
+"databricks.pyodbc" = "databricks_dbapi.sqlalchemy_dialects.odbc:DatabricksPyodbcDialect"
 
 [tool.poetry.extras]
 sqlalchemy = ["sqlalchemy"]
