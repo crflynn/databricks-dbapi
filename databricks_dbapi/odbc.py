@@ -4,7 +4,15 @@ from pyodbc import *  # Make globals and exceptions visible in this module per P
 
 
 def connect(
-    host, port=443, database="default", http_path=None, token=None, user=None, password=None, driver_path=None, **kwargs
+    host,
+    port=443,
+    database="default",
+    http_path=None,
+    token=None,
+    user=None,
+    password=None,
+    driver_path=None,
+    **kwargs,
 ):
     """Create an ODBC DBAPI connection to a Databricks workspace or SQL Analytics cluster.
 
@@ -27,7 +35,8 @@ def connect(
     :param str token: a Databricks API token.
     :param str user: a Databricks user name.
     :param str password: the corresponding Databricks user's password.
-    :param str driver_path: the path to the ODBC driver.
+    :param str driver_path: the absolute path to the ODBC driver.
+    :param dict kwargs: keyword args passed to ``pyodbc.connect``
     """
     if driver_path is None:
         raise ValueError("Driver path must be provided.")

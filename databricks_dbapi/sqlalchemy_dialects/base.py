@@ -1,36 +1,13 @@
 import re
+from abc import ABC
 
 from pyhive.sqlalchemy_hive import HiveDialect
 from pyhive.sqlalchemy_hive import _type_map
 from sqlalchemy import types
 from sqlalchemy import util
 
-from databricks_dbapi import hive
 
-
-class DatabricksDialect(HiveDialect):
-    name = b"databricks"
-    driver = b"pyhive"
-
-    @classmethod
-    def dbapi(cls):
-        return hive
-
-    def create_connect_args(self, url):
-        kwargs = {
-            "host": url.host,
-            "port": url.port or 443,
-            "user": url.username,
-            "password": url.password,
-            "database": url.database or "default",
-        }
-
-        if url.query is not None and "http_path" in url.query:
-            kwargs["http_path"] = url.query["http_path"]
-
-        kwargs.update(url.query)
-        return [], kwargs
-
+class DatabricksDialectBase(HiveDialect, ABC):
     def get_table_names(self, connection, schema=None, **kw):
         query = "SHOW TABLES"
         if schema:

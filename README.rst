@@ -11,7 +11,7 @@ databricks-dbapi
 
 A thin wrapper around `pyhive <https://github.com/dropbox/PyHive>`__ and `pyodbc <https://github.com/mkleehammer/pyodbc>`__ for creating a `DBAPI <https://www.python.org/dev/peps/pep-0249/>`__ connection to Databricks Workspace and SQL Analytics clusters. SQL Analytics clusters require the `Simba ODBC driver <https://databricks.com/spark/odbc-driver-download>`__.
 
-Also provides a SQLAlchemy Dialect for Databricks Workspace clusters.
+Also provides SQLAlchemy Dialects using ``pyhive`` and ``pyodbc`` for Databricks clusters. Databricks SQL Analytics clusters only support the ``pyodbc``-driven dialect.
 
 Installation
 ------------
@@ -125,6 +125,7 @@ Connecting with ``http_path``, ``host``, and a ``token``:
         host=host,
         http_path=http_path,
         token=token,
+        driver_path="/path/to/simba/driver",
     )
     cursor = connection.cursor()
 
@@ -134,10 +135,13 @@ Connecting with ``http_path``, ``host``, and a ``token``:
     print(cursor.fetchall())
 
 
-SQLAlchemy
-----------
+SQLAlchemy Dialects
+-------------------
 
-Once the ``databricks-dbapi`` package is installed, the ``databricks+pyhive`` dialect/driver will be registered to SQLAlchemy. Fill in the required information when passing the engine URL.
+databricks+pyhive
+~~~~~~~~~~~~~~~~~
+
+Installing registers the ``databricks+pyhive`` dialect/driver with SQLAlchemy. Fill in the required information when passing the engine URL.
 
 .. code-block:: python
 
@@ -149,6 +153,27 @@ Once the ``databricks-dbapi`` package is installed, the ``databricks+pyhive`` di
     engine = create_engine(
         "databricks+pyhive://token:<databricks_token>@<host>:<port>/<database>",
         connect_args={"http_path": "<cluster_http_path>"}
+    )
+
+    logs = Table("my_table", MetaData(bind=engine), autoload=True)
+    print(select([func.count("*")], from_obj=logs).scalar())
+
+
+databricks+pyodbc
+~~~~~~~~~~~~~~~~~
+
+Installing registers the ``databricks+pyodbc`` dialect/driver with SQLAlchemy. Fill in the required information when passing the engine URL.
+
+.. code-block:: python
+
+    from sqlalchemy import *
+    from sqlalchemy.engine import create_engine
+    from sqlalchemy.schema import *
+
+
+    engine = create_engine(
+        "databricks+pyodbc://token:<databricks_token>@<host>:<port>/<database>",
+        connect_args={"http_path": "<cluster_http_path>", "driver_path": "/path/to/simba/driver"}
     )
 
     logs = Table("my_table", MetaData(bind=engine), autoload=True)

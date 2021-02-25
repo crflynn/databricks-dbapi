@@ -14,8 +14,8 @@ threadsafety = hive.threadsafety
 paramstyle = hive.paramstyle
 
 
-def connect(host, port=443, database="default", http_path=None, token=None, user=None, password=None):
-    """Create a pyhive-driven DBAPI connection to an interactive Databricks cluster.
+def connect(host, port=443, database="default", http_path=None, token=None, user=None, password=None, **kwargs):
+    """Create a pyhive-driven DBAPI connection to Databricks workspace cluster.
 
     Create a DBAPI connection to a Databricks cluster, which can be used to generate
     DBAPI cursor(s). Provide an ``http_path`` from the cluster's JDBC/ODBC connection
@@ -35,6 +35,7 @@ def connect(host, port=443, database="default", http_path=None, token=None, user
     :param str token: a Databricks API token.
     :param str user: a Databricks user name.
     :param str password: the corresponding Databricks user's password.
+    :param dict kwargs: keyword arguments passed to ``hive.connect``
     """
     if token is not None:
         auth = "token:%s" % token
@@ -57,4 +58,4 @@ def connect(host, port=443, database="default", http_path=None, token=None, user
     transport = THttpClient.THttpClient(url)
     transport.setCustomHeaders({"Authorization": "Basic %s" % auth})
 
-    return hive.connect(database=database, thrift_transport=transport)
+    return hive.connect(database=database, thrift_transport=transport, **kwargs)
