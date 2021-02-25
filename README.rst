@@ -134,13 +134,13 @@ Connecting with ``http_path``, ``host``, and a ``token``:
     print(cursor.fetchall())
 
 
-SQLAlchemy
-----------
+SQLAlchemy Dialects
+-------------------
 
 databricks+pyhive
 ~~~~~~~~~~~~~~~~~
 
-Once the ``databricks-dbapi`` package is installed, the ``databricks+pyhive`` dialect/driver will be registered to SQLAlchemy. Fill in the required information when passing the engine URL.
+Installing registers the ``databricks+pyhive`` dialect/driver with SQLAlchemy. Fill in the required information when passing the engine URL.
 
 .. code-block:: python
 
@@ -158,10 +158,10 @@ Once the ``databricks-dbapi`` package is installed, the ``databricks+pyhive`` di
     print(select([func.count("*")], from_obj=logs).scalar())
 
 
-databricks+pyhive
+databricks+pyodbc
 ~~~~~~~~~~~~~~~~~
 
-Once the ``databricks-dbapi`` package is installed, the ``databricks+pyodbc`` dialect/driver will be registered to SQLAlchemy. Fill in the required information when passing the engine URL.
+Installing registers the ``databricks+pyodbc`` dialect/driver with SQLAlchemy. Fill in the required information when passing the engine URL.
 
 .. code-block:: python
 

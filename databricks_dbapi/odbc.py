@@ -33,6 +33,7 @@ def connect(
     :param str http_path: the HTTP Path as shown in the cluster's JDBC/ODBC connection
         page. Required if using Azure platform.
     :param str token: a Databricks API token.
+    :param str user: a Databricks user name.
     :param str password: the corresponding Databricks user's password.
     :param str driver_path: the absolute path to the ODBC driver.
     :param dict kwargs: keyword args passed to ``pyodbc.connect``
