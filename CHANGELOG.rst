@@ -1,6 +1,11 @@
 Release History
 ---------------
 
+0.6.0: 2021-11-21
+~~~~~~~~~~~~~~~~~
+
+* ``pyhive`` and ``pyodbc`` are now optional dependencies. At least one of {``hive``, ``odbc``} must now be specified as an extra.
+
 0.5.0: 2021-02-25
 ~~~~~~~~~~~~~~~~~
 
