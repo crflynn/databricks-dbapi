@@ -5,8 +5,8 @@ from databricks_dbapi.sqlalchemy_dialects.base import DatabricksDialectBase
 
 
 class DatabricksPyodbcDialect(DatabricksDialectBase, PyODBCConnector):
-    name = b"databricks"
-    driver = b"pyodbc"
+    name = "databricks"
+    driver = "pyodbc"
 
     @classmethod
     def dbapi(cls):

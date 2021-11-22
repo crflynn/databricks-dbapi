@@ -5,6 +5,7 @@ Release History
 ~~~~~~~~~~~~~~~~~
 
 * ``pyhive`` and ``pyodbc`` are now optional dependencies. At least one of {``hive``, ``odbc``} must now be specified as an extra.
+* Change driver and dialect identifiers from bytes to string.
 
 0.5.0: 2021-02-25
 ~~~~~~~~~~~~~~~~~
