@@ -1,6 +1,11 @@
 Release History
 ---------------
 
+0.6.0: 2021-11-21
+~~~~~~~~~~~~~~~~~
+
+* pyhive is now an optional dependency. Either ``hive`` or ``odbc`` or both must be specified as an extra.
+
 0.5.0: 2021-02-25
 ~~~~~~~~~~~~~~~~~
 

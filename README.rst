@@ -16,18 +16,18 @@ Also provides SQLAlchemy Dialects using ``pyhive`` and ``pyodbc`` for Databricks
 Installation
 ------------
 
-Install using pip:
+Install using pip. You *must* specify at least one of the extras {``hive`` or ``odbc``}. Hive uses ``sasl`` which requires ``libsasl`` at installation time to compile. For ``odbc`` the `Simba driver <https://databricks.com/spark/odbc-driver-download>`__ is required:
 
 .. code-block:: bash
 
-    pip install databricks-dbapi
+    pip install databricks-dbapi[hive,odbc]
 
 
 For SQLAlchemy support install with:
 
 .. code-block:: bash
 
-    pip install databricks-dbapi[sqlalchemy]
+    pip install databricks-dbapi[hive,odbc,sqlalchemy]
 
 Usage
 -----

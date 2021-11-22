@@ -120,7 +120,7 @@ name = "future"
 version = "0.18.2"
 description = "Clean single-source support for Python 3 and 2"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
@@ -239,10 +239,10 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pyhive"
-version = "0.6.3"
+version = "0.6.4"
 description = "Python interface to Hive"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -257,13 +257,14 @@ hive = ["sasl (>=0.2.1)", "thrift (>=0.10.0)", "thrift_sasl (>=0.1.0)"]
 kerberos = ["requests_kerberos (>=0.12.0)"]
 presto = ["requests (>=1.0.0)"]
 sqlalchemy = ["sqlalchemy (>=1.3.0)"]
+trino = ["requests (>=1.0.0)"]
 
 [[package]]
 name = "pyodbc"
 version = "4.0.30"
 description = "DB API Module for ODBC"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -307,7 +308,7 @@ name = "python-dateutil"
 version = "2.8.1"
 description = "Extensions to the standard Python datetime module"
 category = "main"
-optional = false
+optional = true
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 
 [package.dependencies]
@@ -340,7 +341,7 @@ name = "sasl"
 version = "0.2.1"
 description = "Cyrus-SASL bindings for Python"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -387,7 +388,7 @@ name = "thrift"
 version = "0.13.0"
 description = "Python bindings for the Apache Thrift RPC system"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -403,7 +404,7 @@ name = "thrift-sasl"
 version = "0.3.0"
 description = "Thrift SASL Python module that implements SASL transports for Thrift (`TSaslClientTransport`)."
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -472,12 +473,14 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pathlib2", "unittest2", "jaraco.itertools", "func-timeout"]
 
 [extras]
+hive = ["pyhive"]
+odbc = ["pyodbc"]
 sqlalchemy = ["sqlalchemy"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "~2.7 || ^3.5"
-content-hash = "96016a0f1518f5e8c94add0946230f6006d1ee84cf30f70416f94177bd2c064b"
+content-hash = "61d460943c48cc06943e874d38c02636fdae474b02d8869247be572c5e6bd1ed"
 
 [metadata.files]
 appdirs = [
@@ -497,6 +500,7 @@ attrs = [
     {file = "backports.functools_lru_cache-1.6.1.tar.gz", hash = "sha256:8fde5f188da2d593bd5bc0be98d9abc46c95bb8a9dde93429570192ee6cc2d4a"},
 ]
 black = [
+    {file = "black-20.8b1-py3-none-any.whl", hash = "sha256:70b62ef1527c950db59062cda342ea224d772abdf6adc58b86a45421bab20a6b"},
     {file = "black-20.8b1.tar.gz", hash = "sha256:1c02557aa099101b9d21496f8a914e9ed2222ef70336404eeeac8edba836fbea"},
 ]
 click = [
@@ -566,7 +570,7 @@ py = [
     {file = "py-1.10.0.tar.gz", hash = "sha256:21b81bda15b66ef5e1a777a21c4dcd9c20ad3efd0b3f817e7a809035269e1bd3"},
 ]
 pyhive = [
-    {file = "PyHive-0.6.3.tar.gz", hash = "sha256:00fe5b9a4289b5d40d3ccb7bad52a76982f485c7350a792a80d31277d26a7fd1"},
+    {file = "PyHive-0.6.4.tar.gz", hash = "sha256:10577bb3393e3da3d8ba68b2cfe800edcc1fbb0bf48394fb9a2701740f79665f"},
 ]
 pyodbc = [
     {file = "pyodbc-4.0.30-cp27-cp27m-win32.whl", hash = "sha256:a1af49a2f4f0abbafdc018d510e31561d3f9472725dc1d49cce3bd2e10e9ec18"},
