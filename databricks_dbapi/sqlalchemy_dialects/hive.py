@@ -3,8 +3,8 @@ from databricks_dbapi.sqlalchemy_dialects.base import DatabricksDialectBase
 
 
 class DatabricksPyhiveDialect(DatabricksDialectBase):
-    name = b"databricks"
-    driver = b"pyhive"
+    name = "databricks"
+    driver = "pyhive"
 
     @classmethod
     def dbapi(cls):
