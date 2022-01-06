@@ -1,3 +1,6 @@
+*DEPRECATION WARNING* This package is no longer maintained. Databricks now officially maintains a DBAPI package called `databricks-sql-connector <https://pypi.org/project/databricks-sql-connector/>`__ that is compatible with workspace and sql analytics clusters. There is also the newer `sqlalchemy-databricks <https://pypi.org/project/sqlalchemy-databricks/>`__ package which uses the ``databricks-sql-connector`` as a driver.
+
+
 databricks-dbapi
 ================
 
